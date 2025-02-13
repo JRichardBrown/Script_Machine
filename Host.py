@@ -1,3 +1,6 @@
+import Port
+
+
 class Host:
     def __init__(self):
         self.ports = []
@@ -34,7 +37,13 @@ class Host:
         
         return "unknown"
 
-    def to_string(self):
-        return "HOST IP ADDRESS: " + self.get_ip_address() + \
-            "\nVENDOR: " + self.get_vendor() + \
-            "\n\n"
+    def get_host_table(self):
+        ports_table = []
+
+        # create a table of the ports information
+        for port in self.ports:
+            ports_table.append(port.get_row())
+
+        return {"info": f"IP Address: {self.get_ip_address()}\nVendor: {self.get_vendor()}\n\n",
+                      "headers": Port.Port.HEADERS,
+                      "ports": ports_table}

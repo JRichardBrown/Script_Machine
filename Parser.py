@@ -25,25 +25,25 @@ class Parser:
 
             hosts = []
 
-            for node in host_tree:
+            for node1 in host_tree:
                 host = Hst.Host()
-                addresses = node.findall("address")
+                addresses = node1.findall("address")
 
                 host.set_ip_address(addresses[0].get("addr"))
-                host.set_vendor(addresses[1].get("vendor"))
 
-                port_tree = node.findall("port")
+                if len(addresses) > 1:    # if vendor info exists
+                    host.set_vendor(addresses[1].get("vendor"))
 
-                for node in port_tree:
-                    port = Prt.Port(node.get("protocol"), node.get("portid"), node.get("state"), node.get("service"))
+                port_tree = node1.find("ports").findall("port")
 
-                    host.ports.append(port)
+                for node2 in port_tree:
+                    port = Prt.Port(node2.get("protocol"), node2.get("portid"))
 
-            hosts.append(host)
+                    host.add_port(port)
 
-            print(addresses)
+                hosts.append(host.get_host_table())
 
-            return addresses
+            return hosts
 
         except:
             raise Exception("Parse function failed to load file.")
@@ -63,6 +63,6 @@ class Parser:
     
 
     def receive(self, file_name, process):
-        table = self._parse(file_name)
+        hosts = self._parse(file_name)
 
-        self._modules.receive(table)
+        self._modules.receive(hosts)

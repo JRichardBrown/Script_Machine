@@ -9,7 +9,7 @@ class Script_Machine:
         self.network_address = socket.gethostbyname(socket.gethostname()) + "/24"
 
     
-    def launch_script(self, script_name):
+    def launch_script(self, script_name, *args):
         # command = script_name
 
         # for i in range(0, len(args)):
@@ -24,7 +24,11 @@ class Script_Machine:
     def receive(self, process):
         if process == "full scan":
 
+            # thread = threading.Thread(target=lambda : self.launch_script("scan.bat", self.network_address))
+            # thread.start()
+
             self.launch_script("scan.bat", self.network_address)
+
             print("Launching scan.bat")
 
             try: 

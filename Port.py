@@ -8,21 +8,21 @@ class Port:
     def __init__(self, protocol = "unknown", port_id = "unknown", state = "unknown", service = "unknown"):
         self._protocol = protocol
         self._port_id = port_id
-        self._state = state
         self._service = service
+        self._state = state
         self._modules = None
     
     def set_protocol(self, val_):
-        self._protocol = val_
+        if val_:
+            self._protocol = val_
 
     def set_port_id(self, val_):
-        self._port_id = val_
-
-    def set_state(self, val_):
-        self._state = val_
+        if val_:
+            self._port_id = val_
     
     def set_service(self, val_):
-        self._service = val_
+        if val_:
+            self._service = val_
     
     def get_protocol(self):
         return self._protocol
@@ -56,5 +56,5 @@ class Port:
         return True
     
 
-    def get_table(self):
+    def get_row(self):
         return [self._protocol, self._port_id, self._state, self._service]
