@@ -38,6 +38,9 @@ class Parser:
 
                 for node2 in port_tree:
                     port = Prt.Port(node2.get("protocol"), node2.get("portid"))
+                    
+                    if node2.find("service") is not None:
+                        port.set_service(node2.find("service").get("name"))
 
                     host.add_port(port)
 
