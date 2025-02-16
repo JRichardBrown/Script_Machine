@@ -5,6 +5,7 @@ import Host
 
 class NetworkScannerGUI:
     def __init__(self, root):
+        # test change
         """
         Initialize the GUI and create widgets.
         """
