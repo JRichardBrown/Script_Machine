@@ -1,7 +1,6 @@
 import threading
 import tkinter as tk
 from tkinter import ttk
-import Host
 
 class NetworkScannerGUI:
     def __init__(self, root):
@@ -11,6 +10,7 @@ class NetworkScannerGUI:
         """
         self.root = root
         self.root.title("Script Machine")
+        self.root.config(height=600, width=500)
         
         # Variables to store scan results
         self.scan_results = {}
@@ -20,26 +20,32 @@ class NetworkScannerGUI:
 
     def create_widgets(self):
         """
-        Create GUI components and arrange them in a grid layout.
+        Create GUI components
         """
+        self.frame = ttk.Frame(self.root, height=600, width=500)
+        self.frame.pack(fill="both", expand=True, padx=10, pady=10)
+        
+        control_frame = ttk.Frame(self.frame, height=100, width=500, padding=10)
+        
         # "Launch" Button - Full functionality
-        self.start_scan_button = tk.Button(self.root, text="Launch", command=self.start_scan)
+        self.start_scan_button = tk.Button(control_frame, text="        Launch        ", command=self.start_scan)
+        # self.start_scan_button.pack(side=tk.LEFT, padx=10, pady=10)
         self.start_scan_button.grid(row=0, column=0, padx=10, pady=10)
         
+        # Dropdown menu for scan type selection 
+        self.scan_type_menu = ttk.Combobox(control_frame, values=["Port Scan"])
+        self.scan_type_menu.grid(row=0, column=1, padx=10, pady=10)
+        
         # "Clear" Button - Full functionality
-        self.clear_button = tk.Button(self.root, text="Clear", command=self.clear_results)
-        self.clear_button.grid(row=0, column=1, padx=10, pady=10)
+        self.clear_button = tk.Button(control_frame, text="        Clear        ", command=self.clear_results)
+        #self.clear_button.pack(side=tk.RIGHT, padx=10, pady=10)
+        self.clear_button.grid(row=0, column=2, padx=10, pady=10)
         
-        # Dropdown menu for scan type selection - Placeholder
-        self.scan_type_label = tk.Label(self.root, text="Script:")
-        self.scan_type_label.grid(row=1, column=0, padx=10, pady=5, sticky=tk.W)
-        
-        self.scan_type_menu = ttk.Combobox(self.root, values=["Port Scan"])
-        self.scan_type_menu.grid(row=1, column=1, padx=10, pady=5)
+        control_frame.pack(side=tk.TOP, anchor=tk.N)
         
         # Scrollable text box for displaying scan results - Full functionality
-        self.results_text_box = tk.Text(self.root, width=60, height=15)
-        self.results_text_box.grid(row=3, column=0, columnspan=4, padx=10, pady=10)
+        self.results_text_box = tk.Text(self.frame, width=60, height=30, wrap="word")
+        self.results_text_box.pack(expand=True, fill="both")
 
     def start_scan(self):
         """
