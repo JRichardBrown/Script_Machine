@@ -48,7 +48,14 @@ class NetworkScannerGUI:
         
         # Scrollable text box for displaying scan results - Full functionality
         self.results_text_box = tk.Text(self.frame, width=60, height=30, wrap="word")
+        self.results_text_box.config(font=("Aptos", 12))
         self.results_text_box.pack(expand=True, fill="both")
+        
+        # Text tags
+        self.results_text_box.tag_config("Header1", font=("Aptos", 16, "bold"))
+        self.results_text_box.tag_config("Header2", font=("Aptos", 14, "bold"))
+        self.results_text_box.tag_config("Column_Headers", font=("Aptos", 12, "bold"), underline=True)
+        
 
     def launch(self):
         """
@@ -64,17 +71,16 @@ class NetworkScannerGUI:
         """
         Displays scan results in the scrollable text box.
         """
+        self.results_text_box.insert(tk.END, "Scan Results\n\n", "Header1")
+        
         for host in self.scan_results:
             self.results_text_box.insert(tk.END, host["info"])
-            self.results_text_box.insert(tk.END, "\t\t".join(host["headers"]) + "\n")
+            self.results_text_box.insert(tk.END, "\t\t".join(host["headers"]) + "\n", "Column_Headers")
 
             for row in host["ports"]:
                 self.results_text_box.insert(tk.END, "\t\t".join(row) + "\n")
             
             self.results_text_box.insert(tk.END, "\n")
-            
-
-        self.results_text_box.insert(tk.END, "Scan completed.\n")
 
     def clear_results(self):
         """
