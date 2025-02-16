@@ -2,14 +2,13 @@ from typing import Final
 
 
 class Port:
-    HEADERS:Final = ["Protocol", "Port ID", "State", "Service"]
+    HEADERS:Final = ["Protocol", "Port ID", "Service"]
 
     
-    def __init__(self, protocol = "unknown", port_id = "unknown", state = "unknown", service = "unknown"):
+    def __init__(self, protocol = "unknown", port_id = "unknown", service = "unknown"):
         self._protocol = protocol
         self._port_id = port_id
         self._service = service
-        self._state = state
         self._modules = None
     
     def set_protocol(self, val_):
@@ -29,9 +28,6 @@ class Port:
     
     def get_port_id(self):
         return self._port_id
-
-    def get_state(self):
-        return self._state
     
     def get_service(self):
         return self._service
@@ -47,14 +43,9 @@ class Port:
         if not 0 <= int(self._port_id) <= 65535:
             if not self._port_id in valid_port_id:
                 return False
-
-        valid_state = ["open", "closed", "filtered", "unknown"]
-
-        if not self._state in valid_state:
-            return False
         
         return True
     
 
     def get_row(self):
-        return [self._protocol, self._port_id, self._state, self._service]
+        return [self._protocol, self._port_id, self._service]
