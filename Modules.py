@@ -19,7 +19,7 @@ class Modules:
 
 
     _processes = {
-        "full scan" : [Module_Id.SCRIPT_MACHINE, Module_Id.PARSER, Module_Id.GUI]
+        "scan.bat" : [Module_Id.SCRIPT_MACHINE, Module_Id.PARSER, Module_Id.GUI]
     }
 
 

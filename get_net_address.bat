@@ -1,2 +1,0 @@
-ipconfig >networkinfo.txt
-exit

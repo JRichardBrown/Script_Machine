@@ -1,3 +1,4 @@
+import os
 import threading
 import tkinter as tk
 from tkinter import ttk
@@ -28,13 +29,15 @@ class NetworkScannerGUI:
         control_frame = ttk.Frame(self.frame, height=100, width=500, padding=10)
         
         # "Launch" Button - Full functionality
-        self.start_scan_button = tk.Button(control_frame, text="        Launch        ", command=self.start_scan)
+        self.launch_button = tk.Button(control_frame, text="        Launch        ", command=self.launch)
         # self.start_scan_button.pack(side=tk.LEFT, padx=10, pady=10)
-        self.start_scan_button.grid(row=0, column=0, padx=10, pady=10)
+        self.launch_button.grid(row=0, column=0, padx=10, pady=10)
         
-        # Dropdown menu for scan type selection 
-        self.scan_type_menu = ttk.Combobox(control_frame, values=["Port Scan"])
-        self.scan_type_menu.grid(row=0, column=1, padx=10, pady=10)
+        # Dropdown menu for script selection
+        self.file_list = [fname for fname in os.listdir(r"scripts")]
+        self.script_menu = ttk.Combobox(control_frame, values=self.file_list)
+        self.script_menu.current(0)
+        self.script_menu.grid(row=0, column=1, padx=10, pady=10)
         
         # "Clear" Button - Full functionality
         self.clear_button = tk.Button(control_frame, text="        Clear        ", command=self.clear_results)
@@ -47,12 +50,13 @@ class NetworkScannerGUI:
         self.results_text_box = tk.Text(self.frame, width=60, height=30, wrap="word")
         self.results_text_box.pack(expand=True, fill="both")
 
-    def start_scan(self):
+    def launch(self):
         """
         Calls the Modules object's `receive()` method with "full scan" as input.
         """
         if self.module_obj:
-            threading.Thread(self.module_obj.receive("full scan"))
+            threading.Thread(self.module_obj.receive(self.file_list[self.script_menu.current()]))
+            print(self.file_list[self.script_menu.current()])
         else:
             self.results_text_box.insert(tk.END, "Modules object not registered.\n")
 
@@ -77,7 +81,6 @@ class NetworkScannerGUI:
         Clears the results from the text box and resets stored results.
         """
         self.results_text_box.delete(1.0, tk.END)
-        self.scan_results = []
 
     def receive(self, input_data):
         """

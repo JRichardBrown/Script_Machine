@@ -4,32 +4,30 @@ import socket
 import threading
 
 class Script_Machine:
+    
     def __init__(self):
         self._modules = None
         self.network_address = socket.gethostbyname(socket.gethostname()) + "/24"
-
     
     def launch_script(self, script_name, *args):
-        # command = script_name
+        command = script_name
 
-        # for i in range(0, len(args)):
-        #     command = command + ' ' + args[i]
+        for i in range(0, len(args)):
+            command = command + ' ' + args[i]
+        
+        print(command)
 
         try:
-            os.system(script_name + ' 192.168.1.1/24')
+            # os.system(script_name + ' 192.168.1.1/24')
+            os.system(f"{command}")
         except:
             raise Exception("Script Machine failed to launch script.")
 
     
     def receive(self, process):
-        if process == "full scan":
+        if process == "scan.bat":
 
-            # thread = threading.Thread(target=lambda : self.launch_script("scan.bat", self.network_address))
-            # thread.start()
-
-            self.launch_script("scan.bat", self.network_address)
-
-            print("Launching scan.bat")
+            self.launch_script(r"scripts\scan.bat", self.network_address)
 
             try: 
                 self._modules.receive("scanresults.xml")
