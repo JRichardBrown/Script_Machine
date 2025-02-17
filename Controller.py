@@ -1,4 +1,5 @@
-from Controller import Processes as Prcs
+from enum import Enum
+import Controller.Processes as Prcs
 
 
 class Controller:
@@ -38,4 +39,4 @@ class Controller:
                 self._parser.receive(input, self._current_process)
 
             case Prcs.Processes.GUI:
-                self._gui.receive(input, self._current_process)
+                self._gui.receive(input)

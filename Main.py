@@ -1,7 +1,7 @@
 from Parse_Machine import Parse_Machine as Ps
 from Controller import Controller as Ctrl
 import Script_Machine as Sm
-import Gui
+from Gui import Gui
 import tkinter as tk
 
 def main():
