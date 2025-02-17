@@ -1,7 +1,5 @@
 import os
-import Parser as Ps
 import socket
-import threading
 
 class Script_Machine:
     
@@ -14,11 +12,8 @@ class Script_Machine:
 
         for i in range(0, len(args)):
             command = command + ' ' + args[i]
-        
-        print(command)
 
         try:
-            # os.system(script_name + ' 192.168.1.1/24')
             os.system(f"{command}")
         except:
             raise Exception("Script Machine failed to launch script.")
@@ -31,7 +26,6 @@ class Script_Machine:
 
             try: 
                 self._modules.receive("scanresults.xml")
-                # print(self._net_address)
             except:
                 raise Exception("No Modules object loaded.")
 

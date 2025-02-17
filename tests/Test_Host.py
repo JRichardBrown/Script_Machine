@@ -1,5 +1,5 @@
-import Host
-import Port
+import Parse_Machine.Nmap_Parser.Host as Host
+import Parse_Machine.Nmap_Parser.Port as Port
 import pytest
 
 @pytest.fixture

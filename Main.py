@@ -1,15 +1,15 @@
-import Parser as Ps
-import Modules as Mods
+from Parse_Machine import Parse_Machine as Ps
+from Controller import Controller as Ctrl
 import Script_Machine as Sm
 import Gui
 import tkinter as tk
 
 def main():
-    parser = Ps.Parser()
+    parser = Ps.Parse_Machine()
     gui = Gui.NetworkScannerGUI(tk.Tk())
     script_machine = Sm.Script_Machine()
     
-    modules = Mods.Modules(gui, script_machine, parser)
+    modules = Ctrl.Controller(gui, script_machine, parser)
 
     parser.register(modules)
     gui.register(modules)
