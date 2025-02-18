@@ -1,0 +1,1 @@
+nmap -oX - --open %1

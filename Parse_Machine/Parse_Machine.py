@@ -8,6 +8,6 @@ class Parse_Machine:
     def register(self, modules):
         self._modules = modules
     
-    def receive(self, file_name, process):
+    def receive(self, scan_output, process):
         if process == "scan.bat":
-            self._modules.receive(Npsr.Nmap_Parser.parse(file_name))
+            self._modules.receive(Npsr.Nmap_Parser.parse(scan_output))

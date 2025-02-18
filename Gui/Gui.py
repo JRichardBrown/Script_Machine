@@ -32,7 +32,7 @@ class NetworkScannerGUI:
         self.launch_button.grid(row=0, column=0, padx=10, pady=10)
         
         # Dropdown menu for script selection
-        self.file_list = [fname for fname in os.listdir(r"scripts")]
+        self.file_list = [fname for fname in os.listdir(r"Script_Machine\scripts")]
         self.script_menu = ttk.Combobox(control_frame, values=self.file_list)
         self.script_menu.current(0)
         self.script_menu.grid(row=0, column=1, padx=10, pady=10)
