@@ -2,6 +2,7 @@ import os
 import threading
 import tkinter as tk
 from tkinter import ttk
+from tkinter import scrolledtext
 from Gui.Printers import Nmap_Printer as Nmptr
 
 class NetworkScannerGUI:
@@ -45,9 +46,18 @@ class NetworkScannerGUI:
         control_frame.pack(side=tk.TOP, anchor=tk.N)
         
         # Scrollable text box for displaying scan results - Full functionality
-        self.results_text_box = tk.Text(self.frame, width=60, height=30, wrap="word")
+        self.results_text_box = scrolledtext.ScrolledText(self.frame, width=60, height=25, wrap="word")
+
+        
         self.results_text_box.config(font=("Aptos", 12))
-        self.results_text_box.pack(expand=True, fill="both")
+        self.results_text_box.pack(expand=True, fill="both", pady=5)
+
+        # Text box for displaying scan results - Full functionality
+        self.entry_box = tk.Text(self.frame, width=60, height=1)
+        self.entry_box.config(font=("Aptos", 12))
+        self.entry_box.pack(expand=True, fill="x", pady=5)
+
+        self.entry_box.bind('<Return>', self.execute)
         
         # Text tags
         self.results_text_box.tag_config("Header1", font=("Aptos", 16, "bold"))
@@ -72,11 +82,23 @@ class NetworkScannerGUI:
         """
         self.results_text_box.delete(1.0, tk.END)
 
+
+    def execute(self, event):
+        self.results_text_box.insert(tk.END, os.popen(self.entry_box.get(1.0, tk.END)).read())
+        self.entry_box.delete(1.0, tk.END)
+
+
     def receive(self, input, process):
 
         # Prints the results of the parsed script
         if process == "scan.bat":
            Nmptr.NMap_Printer.display(input, self.results_text_box)
+
+        # elif process == "check_connection":
+        #     self.results_text_box.insert(tk.END, input)
+
+        else:
+            self.results_text_box.insert(tk.END, input)
 
     def register(self, module_obj):
         """

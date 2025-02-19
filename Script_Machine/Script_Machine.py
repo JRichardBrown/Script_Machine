@@ -14,8 +14,8 @@ class Script_Machine:
             command = command + ' ' + args[i]
 
         try:
-            scan_output = os.popen(f"{command}").read().split('\n', 2)    # ignore the first 2 lines
-            return scan_output[2]
+            scan_output = os.popen(f"{command}").read()
+            return scan_output
         except:
             raise Exception("Script Machine failed to launch script.")
 
@@ -25,6 +25,12 @@ class Script_Machine:
 
             try: 
                 self._modules.receive(self.launch_script(r"Script_Machine\scripts\scan.bat", self.network_address))
+            except:
+                raise Exception("No Modules object loaded.")
+            
+        if process == "check_connection.bat":
+            try: 
+                self._modules.receive(self.launch_script(r"Script_Machine\scripts\check_connection.bat"))
             except:
                 raise Exception("No Modules object loaded.")
 

@@ -8,7 +8,8 @@ class Processes:
     PRINTER = 4
 
     _processes = {
-        "scan.bat" : [SCRIPT_MACHINE, PARSE_MACHINE, GUI]
+        "scan.bat" : [SCRIPT_MACHINE, PARSE_MACHINE, GUI],
+        "check_connection.bat" : [SCRIPT_MACHINE, PARSE_MACHINE, GUI]
     }
 
     @classmethod

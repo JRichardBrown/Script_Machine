@@ -16,6 +16,10 @@ from Parse_Machine.Nmap_Parser import Host as Hst
 class Nmap_Parser:
     @classmethod
     def parse(cls, scan_output):
+        # remove the first 2 lines
+        temp = scan_output.split('\n', 2)
+        scan_output = temp[2]
+
         tree = ET.ElementTree(ET.fromstring(scan_output))
 
         host_tree = tree.findall("host")
