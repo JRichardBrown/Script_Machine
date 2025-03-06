@@ -10,7 +10,6 @@ def main():
     script_machine = Sm.Script_Machine()
     
     modules = Ctrl.Controller(gui, script_machine, parser)
-
     parser.register(modules)
     gui.register(modules)
     script_machine.register(modules)

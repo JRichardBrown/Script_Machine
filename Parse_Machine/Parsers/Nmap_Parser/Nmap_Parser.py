@@ -7,9 +7,9 @@
 
 
 import xml.etree.ElementTree as ET
-from Parse_Machine.Nmap_Parser import Port as Port
+from Parse_Machine.Parsers.Nmap_Parser import Port as Port
 import os
-from Parse_Machine.Nmap_Parser import Host as Hst
+from Parse_Machine.Parsers.Nmap_Parser import Host as Hst
 
 
 # Parses an .xml file created by NMap and creats a list of Port objects

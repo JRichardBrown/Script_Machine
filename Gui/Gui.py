@@ -29,8 +29,12 @@ class NetworkScannerGUI:
         
         # "Launch" Button - Full functionality
         self.launch_button = tk.Button(control_frame, text="        Launch        ", command=self.launch)
-        # self.start_scan_button.pack(side=tk.LEFT, padx=10, pady=10)
         self.launch_button.grid(row=0, column=0, padx=10, pady=10)
+
+        # "Execute" Button - Full functionality
+        # self.execute_button = tk.Button(control_frame, text="        Execute        ", command=self.execute)
+        # self.start_scan_button.pack(side=tk.LEFT, padx=10, pady=10)
+        # self.execute_button.grid(row=0, column=3, padx=10, pady=10)
         
         # Dropdown menu for script selection
         self.file_list = [fname for fname in os.listdir(r"Script_Machine\scripts")]
@@ -52,12 +56,18 @@ class NetworkScannerGUI:
         self.results_text_box.config(font=("Aptos", 12))
         self.results_text_box.pack(expand=True, fill="both", pady=5)
 
-        # Text box for displaying scan results - Full functionality
+        # Text box for entering command-line commands
         self.entry_box = tk.Text(self.frame, width=60, height=1)
         self.entry_box.config(font=("Aptos", 12))
         self.entry_box.pack(expand=True, fill="x", pady=5)
+        #  self.entry_box.grid(row=0, column=0, padx=5, pady=5)
 
-        self.entry_box.bind('<Return>', self.execute)
+        # "Execute" Button - Full functionality
+        self.execute_button = tk.Button(self.frame, text="      Execute      ", command=self.execute)
+        self.execute_button.pack(side=tk.BOTTOM, padx=5, pady=5, anchor=tk.S)
+        #  self.execute_button.grid(row=0, column=1, padx=5, pady=5)
+
+        # self.entry_box.bind('<Return>', self.execute)
         
         # Text tags
         self.results_text_box.tag_config("Header1", font=("Aptos", 16, "bold"))
@@ -83,8 +93,13 @@ class NetworkScannerGUI:
         self.results_text_box.delete(1.0, tk.END)
 
 
-    def execute(self, event):
-        self.results_text_box.insert(tk.END, os.popen(self.entry_box.get(1.0, tk.END)).read())
+    def execute(self):
+        output = os.popen(self.entry_box.get(1.0, tk.END))
+        self.results_text_box.insert(tk.END, output.read())
+        # output.close()
+        # output = os.popen('exit')
+        # self.results_text_box.insert(tk.END, os.popen(self.entry_box.get(1.0, tk.END)).read())
+        # os.system(self.entry_box.get(1.0, tk.END))
         self.entry_box.delete(1.0, tk.END)
 
 

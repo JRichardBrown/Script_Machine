@@ -1,4 +1,4 @@
-from Parse_Machine.Nmap_Parser import Port
+from Parse_Machine.Parsers.Nmap_Parser import Port
 
 
 class Host:

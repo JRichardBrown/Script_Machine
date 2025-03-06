@@ -1,4 +1,4 @@
-from Parse_Machine.Parsers import Nmap_Parser as Npsr
+from Parse_Machine.Parsers.Nmap_Parser import Nmap_Parser as Npsr
 
 class Parse_Machine:
 
